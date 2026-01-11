@@ -17,6 +17,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
+  bottom_navy_bar:
+    dependency: "direct main"
+    description:
+      name: bottom_navy_bar
+      sha256: ed54e0a18748106cc4d3648390bf94e88c0913db6bd3018dd30ab0810f0c26d6
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.0"
   cached_network_image:
     dependency: "direct main"
     description:
@@ -213,6 +221,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_zoom_drawer:
+    dependency: "direct main"
+    description:
+      name: flutter_zoom_drawer
+      sha256: "5a3708548868463fb36e0e3171761ab7cb513df88d2f14053802812d2e855060"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.0"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -229,6 +245,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.0"
+  get:
+    dependency: "direct main"
+    description:
+      name: get
+      sha256: "5ed34a7925b85336e15d472cc4cfe7d9ebf4ab8e8b9f688585bf6b50f4c3d79a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.7.3"
   google_fonts:
     dependency: "direct main"
     description:
