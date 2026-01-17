@@ -82,6 +82,7 @@ class _SpaceManagementScreenState extends State<SpaceManagementScreen> {
         elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: null,
         backgroundColor: AppConstants.primaryColor,
         onPressed: () {
           Navigator.push(
@@ -113,9 +114,7 @@ class _SpaceManagementScreenState extends State<SpaceManagementScreen> {
                         height: 150,
                         width: double.infinity,
                         child: image != null
-                           ? (image.startsWith('http')
-                              ? Image.network(image, fit: BoxFit.cover)
-                              : Image.memory(base64Decode(image), fit: BoxFit.cover))
+                           ? Image(image: _getImageProvider(image), fit: BoxFit.cover)
                            : Container(color: Colors.grey, child: const Icon(Icons.image_not_supported)),
                       ),
                       Padding(
@@ -164,5 +163,20 @@ class _SpaceManagementScreenState extends State<SpaceManagementScreen> {
               },
             ),
     );
+  }
+
+  ImageProvider _getImageProvider(String? imageUrl) {
+    if (imageUrl == null || imageUrl.isEmpty) {
+      return const NetworkImage("https://images.unsplash.com/photo-1566073771259-6a8506099945");
+    }
+    if (imageUrl.startsWith('http') || imageUrl.startsWith('https')) {
+      return NetworkImage(imageUrl);
+    }
+    try {
+      return MemoryImage(base64Decode(imageUrl));
+    } catch (e) {
+      print("Error decoding base64 image: $e");
+      return const NetworkImage("https://images.unsplash.com/photo-1566073771259-6a8506099945");
+    }
   }
 }

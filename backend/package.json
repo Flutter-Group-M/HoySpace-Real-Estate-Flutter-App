@@ -15,6 +15,10 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.3.2",
     "morgan": "^1.10.0",
+<<<<<<< Updated upstream
+=======
+    "mysql2": "^3.16.1",
+>>>>>>> Stashed changes
     "nodemailer": "^7.0.12"
   },
   "devDependencies": {
