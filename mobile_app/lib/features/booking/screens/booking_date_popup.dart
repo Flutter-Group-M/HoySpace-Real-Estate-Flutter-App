@@ -9,7 +9,7 @@ class BookingDatePopup extends StatefulWidget {
 }
 
 class _BookingDatePopupState extends State<BookingDatePopup> {
-  DateTime _focusedDay = DateTime(2025, 4, 1); // Mocked start based on design image (April 2025)
+  final DateTime _focusedDay = DateTime(2025, 4, 1); // Mocked start based on design image (April 2025)
   DateTime? _selectedDay;
   final ScrollController _scrollController = ScrollController();
 
