@@ -7,6 +7,8 @@ import 'features/profile/screens/profile_screen.dart';
 import 'core/constants.dart';
 import 'features/common/screens/splash_screen.dart';
 
+import 'features/home/screens/main_wrapper.dart';
+
 void main() {
   runApp(
     DevicePreview(
@@ -45,7 +47,8 @@ class HoySpaceApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashScreen(), // Keep splash as initial
         '/profile': (context) => const ProfileScreen(),
-
+        '/home': (context) => const MainWrapper(),
+        '/Widget': (context) => const MainWrapper(), // Fix for DevicePreview weirdness
       },
     );
   }
