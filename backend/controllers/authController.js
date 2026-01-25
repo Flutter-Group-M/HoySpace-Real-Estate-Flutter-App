@@ -13,7 +13,8 @@ const generateToken = (id) => {
 // @route   POST /api/auth/register
 // @access  Public
 const registerUser = async (req, res) => {
-    const { name, email, password, phone } = req.body; // Added phone
+    const { name, password, phone } = req.body;
+    const email = req.body.email ? req.body.email.trim() : '';
 
     try {
         const userExists = await User.findByEmail(email);
@@ -56,7 +57,8 @@ const registerUser = async (req, res) => {
 // @route   POST /api/auth/login
 // @access  Public
 const loginUser = async (req, res) => {
-    const { email, password } = req.body;
+    const { password } = req.body;
+    const email = req.body.email ? req.body.email.trim() : '';
 
     try {
         const user = await User.findByEmail(email);
@@ -83,7 +85,7 @@ const loginUser = async (req, res) => {
 // Forgot Password
 // POST /api/auth/forgot-password
 const forgotPassword = async (req, res) => {
-    const { email } = req.body;
+    const email = req.body.email ? req.body.email.trim() : '';
     try {
         const user = await User.findByEmail(email);
         if (!user) {
@@ -132,7 +134,8 @@ const forgotPassword = async (req, res) => {
 // Verify OTP
 // POST /api/auth/verify-otp
 const verifyOTP = async (req, res) => {
-    const { email, otp } = req.body;
+    const { otp } = req.body;
+    const email = req.body.email ? req.body.email.trim() : '';
     try {
         const user = await User.findByOTP(email, otp);
 
@@ -150,7 +153,8 @@ const verifyOTP = async (req, res) => {
 // Reset Password
 // POST /api/auth/reset-password
 const resetPassword = async (req, res) => {
-    const { email, otp, newPassword } = req.body;
+    const { otp, newPassword } = req.body;
+    const email = req.body.email ? req.body.email.trim() : '';
     try {
         const user = await User.findByOTP(email, otp);
 

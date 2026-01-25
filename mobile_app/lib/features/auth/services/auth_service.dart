@@ -5,7 +5,7 @@ import '../../../core/constants.dart';
 
 class AuthService {
   // Login
-  Future<bool> login(String email, String password) async {
+  Future<String?> login(String email, String password) async {
     try {
       final response = await http.post(
         Uri.parse('${AppConstants.baseUrl}/auth/login'),
@@ -30,15 +30,16 @@ class AuthService {
         await prefs.setString('role', data['role']);
         await prefs.setString('image', data['image'] ?? "");
         
-        return true;
+        return null; // Success
       } else {
         print("Login Failed: ${response.statusCode}");
         print("Response Body: ${response.body}");
-        return false;
+        final data = jsonDecode(response.body);
+        return data['message'] ?? "Login Failed: ${response.statusCode}";
       }
     } catch (e) {
       print("Login Error: $e");
-      return false;
+      return "Network Error: $e";
     }
   }
 

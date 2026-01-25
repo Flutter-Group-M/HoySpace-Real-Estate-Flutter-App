@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants.dart';
-import '../../home/screens/home_screen.dart';
+import '../../home/screens/main_wrapper.dart';
 
 class BookingSuccessScreen extends StatelessWidget {
   const BookingSuccessScreen({super.key});
@@ -69,7 +69,7 @@ class BookingSuccessScreen extends StatelessWidget {
                 child: OutlinedButton(
                   onPressed: () {
                      Navigator.of(context).pushAndRemoveUntil(
-                       MaterialPageRoute(builder: (context) => const HomeScreen()), 
+                       MaterialPageRoute(builder: (context) => const MainWrapper()), 
                        (route) => false
                      );
                   },

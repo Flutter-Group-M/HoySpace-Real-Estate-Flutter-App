@@ -6,6 +6,7 @@ import '../../auth/screens/login_screen.dart';
 import '../../auth/services/auth_service.dart';
 import 'edit_profile_screen.dart';
 import 'payment_methods_list_screen.dart';
+import 'booking_history_screen.dart';
 import '../../booking/screens/my_bookings_screen.dart';
 import 'notifications_screen.dart';
 import 'security_screen.dart';
@@ -177,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 context, 
                 Icons.history, 
                 "Booking History",
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const MyBookingsScreen(initialIndex: 1))),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const BookingHistoryScreen())),
               ),
               _buildProfileOption(
                 context, 

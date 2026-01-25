@@ -238,12 +238,12 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     final authService = AuthService();
-    final success = await authService.login(_emailController.text, _passwordController.text);
+    final error = await authService.login(_emailController.text.trim(), _passwordController.text);
 
-    if (success && mounted) {
+    if (error == null && mounted) {
        Get.offAll(() => const MainWrapper());
     } else if (mounted) {
-       Get.snackbar("Error", "Login Failed", backgroundColor: Colors.red, colorText: Colors.white);
+       Get.snackbar("Error", error ?? "Login Failed", backgroundColor: Colors.red, colorText: Colors.white);
     }
   }
 }
