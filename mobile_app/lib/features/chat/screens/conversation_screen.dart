@@ -155,7 +155,8 @@ class _ConversationScreenState extends State<ConversationScreen> {
                     itemCount: _messages.length,
                     itemBuilder: (context, index) {
                       final msg = _messages[index];
-                      final isMe = msg['sender']['_id'] == _currentUserId;
+                      // Ensure both are strings for comparison as backend sends int and local is string
+                      final isMe = msg['sender']['_id'].toString() == _currentUserId.toString();
                       return _buildMessageBubble(msg['content'], isMe);
                     },
                   ),
@@ -184,7 +185,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
-                color: isMe ? AppConstants.primaryColor : AppConstants.surfaceColor,
+                color: isMe ? AppConstants.primaryColor : Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: const Radius.circular(12),
                   topRight: const Radius.circular(12),
@@ -195,13 +196,16 @@ class _ConversationScreenState extends State<ConversationScreen> {
               child: Text(
                 text,
                 style: TextStyle(
-                  color: isMe ? Colors.black : Colors.white, 
+                  color: Colors.black, // Visible on both Yellow and White
                   fontWeight: isMe ? FontWeight.bold : FontWeight.normal
                 ),
               ),
             ),
           ),
-          // Add spacing if it's me to balance the avatar space visually or keep right aligned
+          if (isMe) ...[
+            const SizedBox(width: 8), 
+             // Optional: Add user avatar here if desired or just spacing
+          ],
         ],
       ),
     );

@@ -9,6 +9,7 @@ import '../../onboarding/screens/onboarding_screen.dart';
 import '../../booking/screens/my_bookings_screen.dart';
 import '../../profile/screens/profile_screen.dart';
 import '../../profile/screens/edit_profile_screen.dart';
+import '../../admin/screens/admin_dashboard_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -21,6 +22,7 @@ class _MenuScreenState extends State<MenuScreen> {
   String _userName = "HoySpace User";
   String _email = "Welcome back";
   String? _imageUrl;
+  bool _isAdmin = false;
 
   @override
   void initState() {
@@ -34,6 +36,7 @@ class _MenuScreenState extends State<MenuScreen> {
       _userName = prefs.getString('userName') ?? "HoySpace User";
       _email = prefs.getString('email') ?? "Welcome back"; // Using email or fallback as subtitle
       _imageUrl = prefs.getString('image');
+      _isAdmin = prefs.getString('role') == 'admin';
     });
   }
 
@@ -101,6 +104,10 @@ class _MenuScreenState extends State<MenuScreen> {
             _buildMenuItem(Icons.settings, "Settings", () {
               Get.to(() => const EditProfileScreen())?.then((_) => _loadUserData());
             }),
+            if (_isAdmin)
+              _buildMenuItem(Icons.admin_panel_settings, "Admin Dashboard", () {
+                Get.to(() => const AdminDashboardScreen());
+              }), 
             const Spacer(),
             _buildMenuItem(Icons.logout, "Logout", () async {
               await AuthService().logout();

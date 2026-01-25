@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const db = require('./config/db');
 const Space = require('./models/Space');
-const User = require('./models/User');
+const User = require('./models/User'); // We might not need the model object if we query directly, but let's keep it clean
+const dotenv = require('dotenv');
 
 dotenv.config();
 
@@ -100,30 +100,49 @@ const spaces = [
 
 const seedDB = async () => {
     try {
-        await mongoose.connect(process.env.MONGO_URI);
-        console.log('MongoDB Connected');
+        console.log('Connecting to MySQL...');
+        // Test connection
+        await db.query('SELECT 1');
+        console.log('MySQL Connected.');
 
-        // Delete existing spaces to start fresh (Optional: comment out if you want to keep old data)
-        // await Space.deleteMany({}); 
+        console.log('Clearing existing spaces...');
+        await db.query('DELETE FROM spaces');
+        // Reset Auto Increment
+        await db.query('ALTER TABLE spaces AUTO_INCREMENT = 1');
 
-        // Get the first user to assign as host (for demo purposes)
-        const host = await User.findOne({ role: 'admin' });
+        console.log('Finding an admin user...');
+        const [users] = await db.query("SELECT * FROM users WHERE role = 'admin' LIMIT 1");
 
-        if (!host) {
-            console.log("No Admin user found to assign spaces to! Please create an admin user first.");
-            process.exit(1);
+        let hostId;
+        if (users.length > 0) {
+            hostId = users[0].id;
+            console.log(`Found Admin: ${users[0].name} (ID: ${hostId})`);
+        } else {
+            console.log('No Admin user found. Creating a default admin...');
+            // Need to create one if checking didn't find one, but user might be using seedSpaces independently
+            // Let's just try to find ANY user if no admin
+            const [anyUser] = await db.query("SELECT * FROM users LIMIT 1");
+            if (anyUser.length > 0) {
+                hostId = anyUser[0].id;
+                console.log(`No Admin found, using first available User: ${anyUser[0].name} (ID: ${hostId})`);
+            } else {
+                console.error("No users found in database! Please create a user/admin first.");
+                process.exit(1);
+            }
         }
 
-        const sampleSpaces = spaces.map(space => {
-            return { ...space, host: host._id };
-        });
+        console.log('Seeding spaces...');
+        for (const space of spaces) {
+            await Space.create({
+                ...space,
+                host_id: hostId
+            });
+        }
 
-        await Space.insertMany(sampleSpaces);
-
-        console.log('Data Imported!');
+        console.log(`Successfully seeded ${spaces.length} spaces!`);
         process.exit();
     } catch (error) {
-        console.error(`${error}`);
+        console.error('Error seeding database:', error);
         process.exit(1);
     }
 };

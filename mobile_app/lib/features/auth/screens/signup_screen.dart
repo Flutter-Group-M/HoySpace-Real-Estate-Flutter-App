@@ -251,7 +251,7 @@ class _SignupScreenState extends State<SignupScreen> {
     }
 
     final authService = AuthService();
-    final error = await authService.signup(_nameController.text, _emailController.text, _passwordController.text);
+    final error = await authService.signup(_nameController.text.trim(), _emailController.text.trim(), _passwordController.text);
 
     if (error == null && mounted) {
        Get.offAll(() => const MainWrapper());

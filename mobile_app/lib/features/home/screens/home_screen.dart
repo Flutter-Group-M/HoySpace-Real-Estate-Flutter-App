@@ -109,13 +109,14 @@ class HomeContent extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.menu, color: AppConstants.primaryColor),
           onPressed: () {
-            // ZoomDrawer.of(context)?.toggle(); // Unreliable
-            try {
-              Get.find<ZoomDrawerController>().toggle?.call();
-            } catch (e) {
-              print("ZoomDrawerController error: $e");
-              // Fallback
-              ZoomDrawer.of(context)?.toggle();
+            if (ZoomDrawer.of(context) != null) {
+              ZoomDrawer.of(context)!.toggle();
+            } else {
+               try {
+                 Get.find<ZoomDrawerController>().toggle?.call();
+               } catch (e) {
+                 print("ZoomDrawer Toggle Error: $e");
+               }
             }
           },
         ),
