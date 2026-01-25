@@ -1,7 +1,10 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 <<<<<<< HEAD
 >>>>>>> feature/admin-sharmake
+=======
+>>>>>>> feature/profile
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -152,7 +155,10 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> {
   }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 04963835ad5d645256d805f2fa10189e248a98cb
 >>>>>>> feature/admin-sharmake
+=======
+>>>>>>> feature/profile

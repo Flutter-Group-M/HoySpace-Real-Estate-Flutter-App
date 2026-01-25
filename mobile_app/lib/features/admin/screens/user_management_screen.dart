@@ -134,6 +134,7 @@ class _UserManagementScreenState extends State<UserManagementScreen> {
         elevation: 0,
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: null,
         backgroundColor: AppConstants.primaryColor,
         onPressed: () => _showAddEditUserDialog(),
         child: const Icon(Icons.add, color: Colors.black),

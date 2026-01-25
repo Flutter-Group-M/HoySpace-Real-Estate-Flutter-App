@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'dart:convert';
+>>>>>>> feature/profile
 import '../../../core/constants.dart';
 import '../../../core/models/booking_model.dart';
 import '../../../core/services/booking_service.dart';
 
 class MyBookingsScreen extends StatefulWidget {
+<<<<<<< HEAD
   const MyBookingsScreen({super.key});
+=======
+  final int initialIndex;
+  const MyBookingsScreen({super.key, this.initialIndex = 0});
+>>>>>>> feature/profile
 
   @override
   State<MyBookingsScreen> createState() => _MyBookingsScreenState();
@@ -22,6 +31,10 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
+<<<<<<< HEAD
+=======
+      initialIndex: widget.initialIndex,
+>>>>>>> feature/profile
       length: 2,
       child: Scaffold(
         backgroundColor: AppConstants.backgroundColor,
@@ -66,11 +79,38 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildBookingsList(List<Booking> allBookings, {required bool isHistory}) {
     final filteredBookings = allBookings.where((b) {
       final now = DateTime.now();
       // Simple logic: History if checkout passed or status completed/cancelled
       // Upcoming if status confirmed/pending and checkin in future
+=======
+  // Helper for safe image loading
+  ImageProvider _getImageProvider(String? imageUrl) {
+    if (imageUrl == null || imageUrl.isEmpty) {
+      return const AssetImage('assets/images/placeholder.jpg'); 
+    }
+    try {
+      if (imageUrl.startsWith('http')) {
+        return NetworkImage(imageUrl);
+      } else {
+         // Assuming Base64
+         String base64String = imageUrl;
+         if (imageUrl.contains(',')) {
+           base64String = imageUrl.split(',').last;
+         }
+         return MemoryImage(base64Decode(base64String));
+      }
+    } catch (e) {
+      return const AssetImage('assets/images/placeholder.jpg'); 
+    }
+  }
+
+  Widget _buildBookingsList(List<Booking> allBookings, {required bool isHistory}) {
+    final filteredBookings = allBookings.where((b) {
+      final now = DateTime.now();
+>>>>>>> feature/profile
       if (isHistory) {
          return b.status == 'completed' || b.status == 'cancelled' || b.checkOut.isBefore(now);
       } else {
@@ -114,12 +154,24 @@ class _MyBookingsScreenState extends State<MyBookingsScreen> {
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+<<<<<<< HEAD
                     child: Image.network(
                       image.startsWith('http') ? image : "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267",
                       height: 120,
                       width: double.infinity,
                       fit: BoxFit.cover,
                       errorBuilder: (context, error, stackTrace) => Container(height: 120, color: Colors.grey, child: const Icon(Icons.error)),
+=======
+                    child: Container(
+                      height: 120,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: _getImageProvider(image),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+>>>>>>> feature/profile
                     ),
                   ),
                   Positioned(
